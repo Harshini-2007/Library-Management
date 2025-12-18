@@ -150,7 +150,7 @@ public class Main {
         do {
             System.out.println("""
                     
-                    ===== LIBRARY BOOKS =====
+                    ===== LIBRARY MANAGEMENT =====
                     1. Add Book
                     2. Register User
                     3. Search Book

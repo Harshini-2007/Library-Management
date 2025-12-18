@@ -78,31 +78,50 @@ class Library {
     }
 
     public void searchBook(String key) {
-        boolean found = false;
 
-        for (Book b : lib) {
-            if (b.title.equalsIgnoreCase(key) ||
-                b.author.equalsIgnoreCase(key)) {
+    boolean found = false;
+    long isbnKey = -1;
 
-                System.out.println(b);
-                found = true;
-                return;
-            }
+    
+    try {
+        isbnKey = Long.parseLong(key);
+    } catch (NumberFormatException e) {
+        
+    }
 
-            try {
-                long isbn = Long.parseLong(key);
-                if (b.ISBN == isbn) {
-                    System.out.println(b);
-                    found = true;
-                    return;
-                }
-            } catch (NumberFormatException e) {}
-        }
+    
+    for (Book b : lib) {
 
-        if (!found) {
-            System.out.println("Book Not Found!");
+        if (b.title.equalsIgnoreCase(key) ||
+            b.author.equalsIgnoreCase(key) ||
+            b.ISBN == isbnKey) {
+
+            System.out.println("Book Found:");
+            System.out.println(b);
+            return;
         }
     }
+
+    
+    System.out.println("Book Not Found!");
+
+    
+    System.out.println("Did you mean?");
+    boolean suggestion = false;
+
+    for (Book b : lib) {
+        if (b.title.toLowerCase().contains(key.toLowerCase()) ||
+            b.author.toLowerCase().contains(key.toLowerCase())) {
+
+            System.out.println("- " + b.title + " by " + b.author);
+            suggestion = true;
+        }
+    }
+
+    if (!suggestion) {
+        System.out.println("No similar books found.");
+    }
+}
 
      
 

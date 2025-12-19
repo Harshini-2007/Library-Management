@@ -5,8 +5,8 @@
 -restructured switch case <br>
 -Efficient coding is about developing and refactoirng until the system is optimized <br>
 #Features<br>
--Add Books <br>
--Add and register users
+- Add Books <br>
+- Add and register users
 - Display books
 - Issue/Return Books
 - Search option by bookname/author/ISBN

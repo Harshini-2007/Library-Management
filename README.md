@@ -4,8 +4,8 @@
 -"Project optimized from O(n) to O(1) search using HashMaps."<br>
 -restructured switch case <br>
 -Efficient coding is about developing and refactoirng until the system is optimized <br>
-#Features
--Add Books
+#Features<br>
+-Add Books <br>
 -Add and register users
 - Display books
 - Issue/Return Books

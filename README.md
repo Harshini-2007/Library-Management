@@ -1,9 +1,9 @@
 #This is a Library Management System using Java
 <br>
--learnings 
--"Project optimized from O(n) to O(1) search using HashMaps."
--restructured switch case
--Efficient coding is about developing and refactoirng until the system is optimized
+-learnings <br>
+-"Project optimized from O(n) to O(1) search using HashMaps."<br>
+-restructured switch case <br>
+-Efficient coding is about developing and refactoirng until the system is optimized <br>
 #Features
 -Add Books
 -Add and register users
@@ -11,7 +11,7 @@
 - Issue/Return Books
 - Search option by bookname/author/ISBN
 - UNIQUE: IF BOOK NOT FOUND SIMILAR BOOKS LISTED
-- 
+  
 Objective:<br>
 -To Strengthen my fundamentals in java <br>
 -To begin solving real world challenges and on and on...

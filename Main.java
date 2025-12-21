@@ -1,9 +1,7 @@
 import java.util.*;
 
-
 class User {
     static int NextID = 1;
-
     int usrid;
     String name;
     ArrayList<Book> issued = new ArrayList<>();
@@ -15,7 +13,6 @@ class User {
         System.out.println("User ID: " + usrid);
     }
 }
-
 
 class Book {
     long ISBN;
@@ -40,19 +37,19 @@ class Book {
     }
 }
 
-
 class Library {
 
-    HashMap<Long, Book> books = new HashMap<>();      
-    HashMap<Integer, User> users = new HashMap<>();  
+    HashMap<Long, Book> books = new HashMap<>();                 
+    HashMap<String, List<Book>> titleMap = new HashMap<>();      
+    HashMap<String, List<Book>> authorMap = new HashMap<>();     
+    HashMap<Integer, User> users = new HashMap<>();
 
     Library() {
-        books.put(10000L, new Book(10000L, "You Can Win", "Shiv Khera", "Motivation"));
-        books.put(10002L, new Book(10002L, "AI Basics", "John Doe", "AI"));
-        books.put(10003L, new Book(10003L, "DSA", "Jane Smith", "Programming"));
+        addBook(10000L, "You Can Win", "Shiv Khera", "Motivation");
+        addBook(10002L, "AI Basics", "John Doe", "AI");
+        addBook(10003L, "DSA", "Jane Smith", "Programming");
     }
 
-   
     public void addUser(User u) {
         users.put(u.usrid, u);
     }
@@ -61,9 +58,15 @@ class Library {
         return users.get(id);
     }
 
-   
+  
     public void addBook(long ISBN, String title, String author, String category) {
-        books.put(ISBN, new Book(ISBN, title, author, category));
+
+        Book b = new Book(ISBN, title, author, category);
+        books.put(ISBN, b);
+
+        titleMap.computeIfAbsent(title.toLowerCase(), k -> new ArrayList<>()).add(b);
+        authorMap.computeIfAbsent(author.toLowerCase(), k -> new ArrayList<>()).add(b);
+
         System.out.println("Book Added Successfully!");
     }
 
@@ -74,8 +77,10 @@ class Library {
         }
     }
 
+    
     public void searchBook(String key) {
 
+      
         try {
             long isbn = Long.parseLong(key);
             Book b = books.get(isbn);
@@ -86,16 +91,21 @@ class Library {
             }
         } catch (NumberFormatException ignored) {}
 
-        for (Book b : books.values()) {
-            if (b.title.equalsIgnoreCase(key) ||
-                b.author.equalsIgnoreCase(key)) {
-
-                System.out.println("Book Found:");
-                System.out.println(b);
-                return;
-            }
+        
+        List<Book> byTitle = titleMap.get(key.toLowerCase());
+        if (byTitle != null) {
+            byTitle.forEach(System.out::println);
+            return;
         }
 
+     
+        List<Book> byAuthor = authorMap.get(key.toLowerCase());
+        if (byAuthor != null) {
+            byAuthor.forEach(System.out::println);
+            return;
+        }
+
+       
         System.out.println("Book Not Found!");
         System.out.println("Did you mean?");
         boolean suggestion = false;
@@ -146,7 +156,6 @@ class Library {
         System.out.println("Book Not Issued By This User!");
     }
 }
-
 
 public class Main {
     public static void main(String[] args) {
@@ -236,9 +245,7 @@ public class Main {
                 }
 
                 case 6 -> l.displayBooks();
-
                 case 0 -> System.out.println("Thank You!");
-
                 default -> System.out.println("Invalid Choice!");
             }
 
